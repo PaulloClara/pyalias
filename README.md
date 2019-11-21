@@ -9,7 +9,7 @@
 
 ```
 function pyalias() {
-  python -B /run/media/paullo/dev/python/pyalias/run.py $(pwd) $\*
+  python -B path_to_folder/pyalias/run.py $(pwd) $\*
 }
 ```
 
