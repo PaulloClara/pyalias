@@ -2,18 +2,21 @@
 
 ### Install
 
-1. access terminal settings\
+1. clone repository\
+   `$ git clone https://github.com/paulloclara/pyalias.git ~/.pyalias`
+
+2. access terminal settings\
    `$ sudo nano ~/.zshrc` or `$ sudo nano ~/.bashrc`
 
-2. add code at end of file
+3. add code at end of file
 
 ```
 function pyalias() {
-  python -B path_to_folder/pyalias/run.py $(pwd) $\*
+  python -B ~/.pyalias/run.py $(pwd) $*
 }
 ```
 
-3. update terminal settings\
+4. update terminal settings\
    `$ source ~/.zshrc` or `$ source ~/.bashrc`
 
 ### RUN
