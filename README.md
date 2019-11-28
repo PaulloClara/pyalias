@@ -22,3 +22,7 @@ function pyalias() {
 ### RUN
 
 `$ pyalias file_name.file_lang args` ex: `$ pyalias run.c arg1 arg2 arg...`
+
+### UPDATE
+
+`$ (cd ~/.pyalias && git pull)`
