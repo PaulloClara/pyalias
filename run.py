@@ -2,50 +2,58 @@ import subprocess
 from sys import argv
 
 
-class App:
+args = argv[3:]
+lang = argv[2].split('.')[-1]
+current_path = argv[1]
+file_path = '.'.join(argv[2].split('.')[:-1])
+full_path = f'{current_path}/{file_path}.{lang}'
 
-    def __init__(self):
-        self.args = argv[3:]
-        self.lang = argv[2].split('.')[-1]
-        self.current_path = argv[1]
-        self.file_path = '.'.join(argv[2].split('.')[:-1])
-        self.full_path = f'{self.current_path}/{self.file_path}.{self.lang}'
 
-    def run(self):
-        if self.lang in ['c']:
-            self.run_c()
-        elif self.lang in ['py']:
-            self.run_python()
-        else:
-            print('\033[31mSorry, unsupported programming language...\033[0;0m')
+def main():
+    if lang in ['c']:
+        run_c()
+    elif lang in ['py']:
+        run_python()
+    else:
+        show_error('unsupported programming language')
 
-    def run_c(self):
-        output_file_path = f'{self.current_path}/run'
 
-        compile_command = ['gcc', self.full_path, '-o', output_file_path]
-        run_output_file = [output_file_path]
+def run_c():
+    output_file_path = f'{current_path}/run'
 
-        if self.args:
-            self._add_args(run_output_file)
+    compile_command = ['gcc', full_path, '-o', output_file_path]
+    execution_command = [output_file_path]
 
-        subprocess.run(compile_command)
-        subprocess.run(run_output_file)
+    if args:
+        add_args(execution_command)
 
-    def run_python(self):
-        run_command = ['python3', self.full_path]
+    subprocess.run(compile_command)
+    subprocess.run(execution_command)
 
-        if self.args:
-            self._add_args(run_command)
 
-        subprocess.run(run_command)
+def run_python():
+    execution_command = ['python3', '-B', full_path]
 
-    def _add_args(self, command):
-        for arg in self.args:
-            command.append(arg)
+    if args:
+        add_args(execution_command)
 
-        return command
+    subprocess.run(execution_command)
+
+
+def add_args(command):
+    for arg in args:
+        command.append(arg)
+
+    return command
+
+
+def show_error(error):
+    print('\n')
+    raise Exception(f'\033[31m"{error}"\033[0;0m\n\n')
 
 
 if __name__ == '__main__':
-    app = App()
-    app.run()
+    try:
+        main()
+    except Exception:
+        show_error('sorry, unexpected error')
