@@ -12,7 +12,7 @@
 
 ```
 function pyalias() {
-  python -B ~/.pyalias/run.py $(pwd) $*
+  python3 -B ~/.pyalias/run.py $(pwd) $*
 }
 ```
 
