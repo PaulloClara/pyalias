@@ -3,21 +3,10 @@
 ### INSTALL
 
 1. clone repository\
-  `$ git clone https://github.com/paulloclara/pyalias.git ~/.pyalias`
+  `$ git clone https://github.com/paulloclara/pyalias.git ~/.pyalias && python3 ~/.pyalias/install.py`
 
-2. access terminal settings\
-  `$ sudo nano ~/.bashrc`
-
-3. add code at end of file
-
-```
-function pyalias() {
-  python3 -B ~/.pyalias/run.py $(pwd) $*
-}
-```
-
-4. update terminal settings\
-  `$ source ~/.bashrc`
+2. update terminal settings\
+  restart the terminal or `$ source ~/<youbashrc>`
 
 ### RUN
 
