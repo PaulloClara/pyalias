@@ -50,7 +50,7 @@ def run_java():
         execution_command = f'(cd {TEMP_PATH} && java {package})'
     else:
         compile_command = f'javac {FULL_PATH} -d {TEMP_PATH}'
-        execution_command = f'(cd {TEMP_PATH} && java {FILE_NAME})'
+        execution_command = f'(cd {TEMP_PATH} && java {FILE_PATH})'
 
     print(f'compile: {compile_command}')
     print(f'execution: {execution_command}')
