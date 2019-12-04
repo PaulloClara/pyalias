@@ -4,8 +4,9 @@ from subprocess import run as run_command
 
 ARGS = argv[3:]
 LANG = argv[2].split('.')[-1]
-CURRENT_PATH = argv[1]
 FILE_PATH = '.'.join(argv[2].split('.')[:-1])
+FILE_NAME = FILE_PATH.split('/')[-1]
+CURRENT_PATH = argv[1]
 FULL_PATH = f'{CURRENT_PATH}/{FILE_PATH}.{LANG}'
 TEMP_PATH = f'{"/".join(argv[0].split("/")[:-1])}/temp'
 
@@ -16,6 +17,8 @@ def main():
 
     if LANG in ['c']:
         run_c()
+    elif LANG in ['java']:
+        run_java()
     elif LANG in ['py']:
         run_python()
     else:
@@ -33,6 +36,24 @@ def run_c():
 
     run_command(compile_command)
     run_command(execution_command)
+
+
+def run_java():
+    package = FILE_PATH.split('/')
+    if len(package) > 2:
+        package = '/'.join(FILE_PATH.split('/')[-2:])
+        other_path = FILE_PATH.replace(package, "")
+        compile_command =\
+            f'(cd {other_path} && javac {package}.{LANG} -d {TEMP_PATH})'
+        execution_command = f'(cd {TEMP_PATH} && java {package})'
+    else:
+        compile_command = f'javac {FULL_PATH} -d {TEMP_PATH}'
+        execution_command = f'(cd {TEMP_PATH} && java {FILE_NAME})'
+
+    print(compile_command)
+    print(execution_command)
+    run_command(compile_command, shell=True)
+    run_command(execution_command, shell=True)
 
 
 def run_python():
