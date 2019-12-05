@@ -34,8 +34,8 @@ def run_c():
     if ARGS:
         add_args(command=execution_command, ARGS=ARGS)
 
-    print(f'compile: {compile_command}')
-    print(f'execution: {execution_command}')
+    print(f'\ncompile: {compile_command}')
+    print(f'execution: {execution_command}\n')
     run_command(compile_command)
     run_command(execution_command)
 
@@ -52,8 +52,8 @@ def run_java():
         compile_command = f'javac {FULL_PATH} -d {TEMP_PATH}'
         execution_command = f'(cd {TEMP_PATH} && java {FILE_PATH})'
 
-    print(f'compile: {compile_command}')
-    print(f'execution: {execution_command}')
+    print(f'\ncompile: {compile_command}')
+    print(f'execution: {execution_command}\n')
     run_command(compile_command, shell=True)
     run_command(execution_command, shell=True)
 
@@ -64,7 +64,7 @@ def run_python():
     if ARGS:
         add_args(command=execution_command, ARGS=ARGS)
 
-    print(f'execution: {execution_command}')
+    print(f'\nexecution: {execution_command}\n')
     run_command(execution_command)
 
 
