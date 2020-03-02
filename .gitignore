@@ -1,3 +1,6 @@
-*pycache*
-*.env
+.venv
+.vscode
+
 *run
+*.env
+*pycache*
