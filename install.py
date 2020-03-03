@@ -1,7 +1,7 @@
 from os import path
 
 PYALIAS = '\nfunction pyalias() {\n\
-  python3 -B ~/.pyalias/run.py $(pwd) $*\n\
+  python3 -B ~/.pyalias/run.py $(pwd) FULL_FILE_PATH=$1 $*\n\
 }\n'
 
 
