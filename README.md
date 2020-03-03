@@ -38,7 +38,7 @@ Add the code at the end of the file:
 
 ```sh
 function pyalias-dev() {
-  python3 -B <full_project_path>/pyalias/run.py $(pwd) $*
+  python3 -B /run/media/paullo/dev/python/pyalias/run.py $(pwd) FULL_FILE_PATH=$1 $* --pydev
 }
 ```
 
