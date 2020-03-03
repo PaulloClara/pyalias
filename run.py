@@ -13,7 +13,7 @@ TEMP_PATH = f'{"/".join(argv[0].split("/")[:-1])}/temp'
 
 def main():
     if len(argv) < 3:
-        show_error('file not found')
+        show_error('File not found')
 
     if LANG in ['c']:
         run_c()
@@ -34,14 +34,16 @@ def run_c():
     if ARGS:
         add_args(command=execution_command, ARGS=ARGS)
 
-    print(f'\ncompile: {compile_command}')
-    print(f'execution: {execution_command}\n')
+    show_log(f'compile: {compile_command}')
+    show_log(f'execution: {execution_command}')
+
     run_command(compile_command)
     run_command(execution_command)
 
 
 def run_java():
     package = FILE_PATH.split('/')
+
     if len(package) > 2:
         package = '/'.join(FILE_PATH.split('/')[-2:])
         other_path = FILE_PATH.replace(package, "")
@@ -52,8 +54,9 @@ def run_java():
         compile_command = f'javac {FULL_PATH} -d {TEMP_PATH}'
         execution_command = f'(cd {TEMP_PATH} && java {FILE_PATH})'
 
-    print(f'\ncompile: {compile_command}')
-    print(f'execution: {execution_command}\n')
+    show_log(f'compile: {compile_command}')
+    show_log(f'execution: {execution_command}')
+
     run_command(compile_command, shell=True)
     run_command(execution_command, shell=True)
 
@@ -64,7 +67,7 @@ def run_python():
     if ARGS:
         add_args(command=execution_command, ARGS=ARGS)
 
-    print(f'\nexecution: {execution_command}\n')
+    show_log(f'execution: {execution_command}')
     run_command(execution_command)
 
 
@@ -75,20 +78,17 @@ def add_args(command, ARGS):
     return command
 
 
-def show_error(error, stop_exec=True):
-    error = f'\033[31m"{error}"\033[0;0m\n\n'
+def show_log(msg):
+    print(f'\033[33m{msg.capitalize()}\033[0;0m')
 
-    print('\n')
-    if stop_exec:
-        raise Exception(error)
-    else:
-        print(error)
+
+def show_error(error, stop_exec=True):
+    print(f'\n\033[31m"{error.capitalize()}"\033[0;0m\n')
+    exit(1)
 
 
 if __name__ == '__main__':
     try:
         main()
     except Exception as err:
-        if type(err.ARGS[0]) == str and '\n\n' in err.ARGS[0]:
-            raise
-        show_error(error='sorry, unexpected error', stop_exec=False)
+        show_error(error='sorry, unexpected error')
