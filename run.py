@@ -2,18 +2,26 @@ from sys import argv
 from subprocess import run as run_command
 
 
-ARGS = argv[3:]
-LANG = argv[2].split('.')[-1]
-FILE_PATH = '.'.join(argv[2].split('.')[:-1])
-FILE_NAME = FILE_PATH.split('/')[-1]
+PYALIAS_PATH = argv[0]
 CURRENT_PATH = argv[1]
-FULL_PATH = f'{CURRENT_PATH}/{FILE_PATH}.{LANG}'
-TEMP_PATH = f'{"/".join(argv[0].split("/")[:-1])}/temp'
+FULL_FILE_PATH = argv[2].split('=')[1]
+
+ARGS = list(filter(lambda arg: '--py' not in arg, argv[4:]))
+ENV_ARGS = list(filter(lambda arg: '--py' in arg, argv[4:]))
+
+DEV_MODE = '--pydev' in ENV_ARGS
+LANG = FULL_FILE_PATH.split('.')[-1]
+
+FILE_PATH = FULL_FILE_PATH.split('.')[0]
+FULL_PATH = f'{CURRENT_PATH}/{FULL_FILE_PATH}'
+TEMP_PATH = f'{"/".join(PYALIAS_PATH.split("/")[:-1])}/temp'
+
+FILE_NAME = FILE_PATH.split('/')[-1]
 
 
 def main():
-    if len(argv) < 3:
-        show_error('File not found')
+    if not FULL_FILE_PATH:
+        show_error('file not found')
 
     if LANG in ['c']:
         run_c()
@@ -79,16 +87,20 @@ def add_args(command, ARGS):
 
 
 def show_log(msg):
-    print(f'\033[33m{msg.capitalize()}\033[0;0m')
+    if DEV_MODE:
+        print(f'\033[33m{msg.capitalize()}\033[0;0m')
 
 
 def show_error(error, stop_exec=True):
     print(f'\n\033[31m"{error.capitalize()}"\033[0;0m\n')
-    exit(1)
+
+    if stop_exec:
+        exit(1)
 
 
 if __name__ == '__main__':
     try:
         main()
     except Exception as err:
-        show_error(error='sorry, unexpected error')
+        show_error(error='sorry, unexpected error', stop_exec=not DEV_MODE)
+        raise
