@@ -30,20 +30,18 @@ def main():
     elif LANG in ['py']:
         run_python()
     else:
-        show_error(error='unsupported programming language')
+        show_error('unsupported programming language')
 
 
 def run_c():
     output_file_path = f'{TEMP_PATH}/run'
-
     compile_command = ['gcc', FULL_PATH, '-o', output_file_path]
+
     execution_command = [output_file_path]
+    execution_command.extend(ARGS)
 
-    if ARGS:
-        add_args(command=execution_command, ARGS=ARGS)
-
-    show_log(f'compile: {compile_command}')
-    show_log(f'execution: {execution_command}')
+    show_log(f'compiled: {compile_command}')
+    show_log(f'executed: {execution_command}')
 
     run_command(compile_command)
     run_command(execution_command)
@@ -62,8 +60,8 @@ def run_java():
         compile_command = f'javac {FULL_PATH} -d {TEMP_PATH}'
         execution_command = f'(cd {TEMP_PATH} && java {FILE_PATH})'
 
-    show_log(f'compile: {compile_command}')
-    show_log(f'execution: {execution_command}')
+    show_log(f'compiled: {compile_command}')
+    show_log(f'executed: {execution_command}')
 
     run_command(compile_command, shell=True)
     run_command(execution_command, shell=True)
@@ -71,24 +69,15 @@ def run_java():
 
 def run_python():
     execution_command = ['python3', '-B', FULL_PATH]
+    execution_command.extend(ARGS)
 
-    if ARGS:
-        add_args(command=execution_command, ARGS=ARGS)
-
-    show_log(f'execution: {execution_command}')
+    show_log(f'executed: {execution_command}')
     run_command(execution_command)
 
 
-def add_args(command, ARGS):
-    for arg in ARGS:
-        command.append(arg)
-
-    return command
-
-
-def show_log(msg):
+def show_log(message):
     if DEV_MODE:
-        print(f'\033[33m{msg.capitalize()}\033[0;0m')
+        print(f'\033[33m{message.capitalize()}\033[0;0m')
 
 
 def show_error(error, stop_exec=True):
@@ -102,5 +91,5 @@ if __name__ == '__main__':
     try:
         main()
     except Exception as err:
-        show_error(error='sorry, unexpected error', stop_exec=not DEV_MODE)
+        show_error('sorry, unexpected error', stop_exec=not DEV_MODE)
         raise
