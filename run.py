@@ -25,6 +25,8 @@ def main():
 
     if LANG in ['c']:
         run_c()
+    elif LANG in ['cpp']:
+        run_cpp()
     elif LANG in ['java']:
         run_java()
     elif LANG in ['py']:
@@ -36,6 +38,20 @@ def main():
 def run_c():
     output_file_path = f'{TEMP_PATH}/run'
     compile_command = ['gcc', FULL_PATH, '-o', output_file_path]
+
+    execution_command = [output_file_path]
+    execution_command.extend(ARGS)
+
+    show_log(f'compiled: {compile_command}')
+    show_log(f'executed: {execution_command}')
+
+    run_command(compile_command)
+    run_command(execution_command)
+
+
+def run_cpp():
+    output_file_path = f'{TEMP_PATH}/run'
+    compile_command = ['c++', FULL_PATH, '-o', output_file_path]
 
     execution_command = [output_file_path]
     execution_command.extend(ARGS)
