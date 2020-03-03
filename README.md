@@ -1,33 +1,48 @@
 # PyAlias
 
-### INSTALL
+This project aims to increase developer productivity by decreasing the use of
+commands used to execute/invoke programs/interpreters, regardless of the
+programming language.
 
-1. clone repository\
-  `$ git clone https://github.com/paulloclara/pyalias.git ~/.pyalias && python3 ~/.pyalias/install.py`
+### Install
 
-2. update terminal settings\
-  restart the terminal or `$ source ~/.<youbashrc>`
-
-### RUN
-
-`$ pyalias <file_name or file_path> <args or void>`
-
-### UPDATE
-
-`$ (cd ~/.pyalias && git pull)`
-
-### DEV
-
-`$ git clone https://github.com/paulloclara/pyalias.git`\
-`$ cd pyalias`\
-`$ python3 -m venv .env`\
-`$ source .env/bin/activate`\
-`$ pip install -r requirements.txt`\
-`$ nano ~/.<youbashrc>` ex `$ nano ~/.bashrc`
+```bash
+$ git clone https://github.com/paulloclara/pyalias.git ~/.pyalias && python3 ~/.pyalias/install.py
+$ source ~/.<you_bashrc>
 ```
+
+### Run
+
+```bash
+$ pyalias <file_name or file_path> <args or void>
+```
+
+### Update
+
+```bash
+$ (cd ~/.pyalias && git pull)
+```
+
+### Dev
+
+```bash
+$ git clone https://github.com/paulloclara/pyalias.git
+$ cd pyalias
+$ python3 -m venv .venv
+$ source .venv/bin/activate
+$ pip3 install -r requirements.txt
+$ nano ~/.<you_bashrc> | ex: $ nano ~/.bashrc
+```
+
+Add the code at the end of the file:
+
+```sh
 function pyalias-dev() {
   python3 -B <full_project_path>/pyalias/run.py $(pwd) $*
 }
 ```
-`$ source ~/.<youbashrc>`\
-use `$ pyalias-dev <file_name or file_path> <args or void>`
+
+```bash
+$ source ~/.<you_bashrc>
+$ pyalias-dev <file_name or file_path> <args or void>
+```
