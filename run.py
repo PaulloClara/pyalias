@@ -45,8 +45,9 @@ def run_c():
     show_log(f'compiled: {compile_command}')
     show_log(f'executed: {execution_command}')
 
-    run_command(compile_command)
-    run_command(execution_command)
+    result = run_command(compile_command)
+    if result.returncode == 0:
+        run_command(execution_command)
 
 
 def run_cpp():
@@ -59,8 +60,9 @@ def run_cpp():
     show_log(f'compiled: {compile_command}')
     show_log(f'executed: {execution_command}')
 
-    run_command(compile_command)
-    run_command(execution_command)
+    result = run_command(compile_command)
+    if result.returncode == 0:
+        run_command(execution_command)
 
 
 def run_java():
@@ -79,8 +81,9 @@ def run_java():
     show_log(f'compiled: {compile_command}')
     show_log(f'executed: {execution_command}')
 
-    run_command(compile_command, shell=True)
-    run_command(execution_command, shell=True)
+    result = run_command(compile_command, shell=True)
+    if result.returncode == 0:
+        run_command(execution_command, shell=True)
 
 
 def run_python():

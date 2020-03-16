@@ -8,6 +8,6 @@ int main(int argc, char *argv[]) {
   else
     for (size_t i = 1; i < argc; i++)
       cout << "\t" << argv[i] << endl;
-  
+
   return 0;
 }
