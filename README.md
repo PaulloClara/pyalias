@@ -8,7 +8,7 @@ programming language.
 
 ```bash
 $ git clone https://github.com/paulloclara/pyalias.git ~/.pyalias && python3 ~/.pyalias/install.py
-$ source ~/.<you_bashrc>
+$ source ~/.<your_bashrc>
 ```
 
 ### Run
@@ -31,7 +31,7 @@ $ cd pyalias
 $ python3 -m venv .venv
 $ source .venv/bin/activate
 $ pip3 install -r requirements.txt
-$ nano ~/.<you_bashrc> | ex: $ nano ~/.bashrc
+$ nano ~/.<your_bashrc> | ex: $ nano ~/.bashrc
 ```
 
 Add the code at the end of the file:
@@ -43,6 +43,6 @@ function pyalias-dev() {
 ```
 
 ```bash
-$ source ~/.<you_bashrc>
+$ source ~/.<your_bashrc>
 $ pyalias-dev <file_name or file_path> <args or void>
 ```
